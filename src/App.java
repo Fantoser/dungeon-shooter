@@ -1,10 +1,9 @@
-package app;
-
 
 import javax.swing.*;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     
@@ -15,6 +14,7 @@ public class App {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        List<Circle> entities = new ArrayList<>();
 
         JButton button = new JButton("Butt");
         button.setBounds(50, 80, 300, 300);
@@ -76,7 +76,21 @@ public class App {
             }
         });
         frame.add(circle);
+        entities.add(circle);
         frame.add(room);
+
+
+        Timer timer = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                for (Circle circle : entities) {
+                    circle.move();
+                }
+
+            }
+        });
+        timer.start();
+
         frame.setVisible(true);
            
     }

@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
 
-public class Room extends JComponent {
+public class Roome extends JComponent {
 
     private int column = 5;
     private int row = 5;
 
-    public Room(int width, int height) {
+    public Roome(int width, int height) {
         this.column = width;
         this.row = height;
     }

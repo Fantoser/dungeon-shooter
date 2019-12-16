@@ -1,6 +1,4 @@
-import java.awt.Rectangle;
 import java.util.List;
-import java.awt.*;
 
 import javax.swing.JComponent;
 

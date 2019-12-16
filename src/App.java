@@ -1,19 +1,31 @@
 
-import javax.swing.*;
 import java.awt.Rectangle;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class App {
-    
-    private static int speed = 32;
-    
+import javax.swing.*;
+
+public class App extends JPanel {
+
+    private Player player;
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Window with one button");
+        App app = new App();
+    }
+
+    public App() {
+        initApp();
+    }
+    
+    public void initApp() {
+        JFrame frame = new JFrame("Dungeon shooter");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+
+        //addKeyListener(new TAdapter());
+        
         List<Circle> entities = new ArrayList<>();
 
         JButton button = new JButton("Butt");
@@ -22,61 +34,92 @@ public class App {
         Circle circle = new Circle(10, 50);
         circle.setBounds(32, 32, 32, 32);
 
-        Room room = new Room(30, 20);
+        Player player = new Player();
+        player.setBounds(64, 64, 32, 32);
+
+        SpaceShip ship = new SpaceShip();
+        
+        Roome room = new Roome(30, 20);
         //room.setBounds(32, 32, 100, 100);
         room.setBounds(32, 32, room.getColumn()*32, room.getRow()*32);
-
+    
+        
         frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent ev) {
                 
             }
 
+            
             @Override
             public void keyPressed(KeyEvent ev) {
                 int keyCode = ev.getKeyCode();
-                Rectangle origBoudns = circle.getBounds();
-                if(keyCode == KeyEvent.VK_RIGHT){
-                    if (circle.getX()+32 < room.getX()+room.getWidth()) {
-                        circle.setBounds(origBoudns.x + speed, 
-                                origBoudns.y, 
+                Rectangle origBoudns = player.getBounds();
+
+                if (player.canmove == true) {
+
+                    if(keyCode == KeyEvent.VK_RIGHT){
+                        if (player.getX()+32 < room.getX()+room.getWidth()) {
+                            player.setBounds(origBoudns.x + 32, 
+                                    origBoudns.y, 
+                                    origBoudns.width, 
+                                    origBoudns.height);
+                                    player.facing = Direction.RIGHT;
+                                    player.canmove = false;
+                        }
+                    }
+                    else if(keyCode == KeyEvent.VK_LEFT){
+                        if (player.getX()-32 >= room.getX()) {
+                            player.setBounds(origBoudns.x - 32, 
+                                    origBoudns.y, 
+                                    origBoudns.width, 
+                                    origBoudns.height);
+                                    player.facing = Direction.LEFT;
+                                    player.canmove = false;
+                        }
+                    }
+                    else if(keyCode == KeyEvent.VK_UP){
+                        if (player.getY()-32 >= room.getY()) {
+                            player.setBounds(origBoudns.x, 
+                                origBoudns.y - 32, 
                                 origBoudns.width, 
                                 origBoudns.height);
+                                player.facing = Direction.UP;
+                                player.canmove = false;
+                        }
                     }
-                }
-                else if(keyCode == KeyEvent.VK_LEFT){
-                    if (circle.getX()-32 >= room.getX()) {
-                        circle.setBounds(origBoudns.x - speed, 
-                                origBoudns.y, 
+                    else if(keyCode == KeyEvent.VK_DOWN){
+                        if (player.getY()+32 < room.getY()+room.getHeight()) {
+                            player.setBounds(origBoudns.x, 
+                                origBoudns.y + 32, 
                                 origBoudns.width, 
                                 origBoudns.height);
+                                player.facing = Direction.DOWN;
+                                player.canmove = false;
+                        }
                     }
                 }
-                else if(keyCode == KeyEvent.VK_UP){
-                    if (circle.getY()-32 >= room.getY()) {
-                    circle.setBounds(origBoudns.x, 
-                            origBoudns.y - speed, 
-                            origBoudns.width, 
-                            origBoudns.height);
-                    }
-                }
-                else if(keyCode == KeyEvent.VK_DOWN){
-                    if (circle.getY()+32 < room.getY()+room.getHeight()) {
-                    circle.setBounds(origBoudns.x, 
-                            origBoudns.y + speed, 
-                            origBoudns.width, 
-                            origBoudns.height);
-                    }
+
+                if (keyCode == KeyEvent.VK_SPACE && player.canshoot == true) {
+                    System.out.println("PEW!");
+                    player.canshoot = false;
                 }
             }
+            
 
             @Override
             public void keyReleased(KeyEvent ev) {
-                
+                int keyCode = ev.getKeyCode();
+                player.canmove = true;
+                if (keyCode == KeyEvent.VK_SPACE) {
+                    player.canshoot = true;
+                }
             }
         });
+        
         frame.add(circle);
         entities.add(circle);
+        frame.add(player);
         frame.add(room);
 
 
@@ -94,4 +137,19 @@ public class App {
         frame.setVisible(true);
            
     }
+
+    /*
+    private class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            player.keyReleased(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            player.keyPressed(e);
+        }
+    }
+    */
 }

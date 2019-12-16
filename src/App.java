@@ -19,7 +19,7 @@ public class App {
         JButton button = new JButton("Butt");
         button.setBounds(50, 80, 300, 300);
 
-        Circle circle = new Circle();
+        Circle circle = new Circle(10, 50);
         circle.setBounds(32, 32, 32, 32);
 
         Room room = new Room(30, 20);
@@ -80,11 +80,11 @@ public class App {
         frame.add(room);
 
 
-        Timer timer = new Timer(50, new ActionListener() {
+        Timer timer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 for (Circle circle : entities) {
-                    circle.move();
+                    circle.move(Direction.RIGHT);
                 }
 
             }

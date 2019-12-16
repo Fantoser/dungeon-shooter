@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>60</y>
+      <w>190</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+*Entity*
+--
+- int health
+- Direction facing
+- List&lt;int&gt; coordination
+- List&lt;List&lt;CellType\&gt;&gt; map
+--
+move(Dir direction)
+attack()
+hurt(int amount)
+getCoordination()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>150</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>60</y>
+      <w>190</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>*Player*
+--
+- int health
+- Direction facing
+- List&lt;int&gt; coordination
+- int xP
+- int ammo
+- int ammo capacity
+--
+move(Dir direction)
+checkMove(Dir direction)
+attack()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>310</y>
+      <w>190</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>*Monster*
+--
+- int health
+- Direction facing
+- List&lt;int&gt; coordination
+--
+move(Dir direction)
+attack()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>250</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>60</y>
+      <w>180</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>*Map*
+--
+- List&lt;List&lt;CellType\&gt;&gt; map
+- List&lt;Entity&gt; entityList
+--
+reader
+start(List&lt;List&lt;char\&gt;&gt;)
+end()
+getMap()
+getEntities()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>310</y>
+      <w>130</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>*Bullet*
+--
+- int speed
+- Direction facing
+- int atk
+--
+checkTile()
+move
+hit(Entity entity)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>320</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+*Direction*
+--
+UP
+DOWN
+LEFT
+RIGHT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>460</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+*CellType*
+--
+EMPTY
+WALL
+START
+EXIT
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
